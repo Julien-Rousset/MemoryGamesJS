@@ -44,3 +44,7 @@ body {
     background-color: rgba(196, 41, 41, 0.473);
 }
 
+.hidden {
+    display: none;
+}
+
