@@ -1,0 +1,46 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    background-color: black;
+}
+
+.title {
+    text-align: center;
+    color: #fff;
+}
+
+/* Game CSS */
+
+.game {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    width: 500px;
+    flex-wrap: wrap;
+}
+
+.game__board {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.game__board_row {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.game__board_cell {
+    background-color: rgb(126, 126, 126);
+    height: 70px;
+    width: 70px;
+    border-radius: 5%;
+}
+
+.active {
+    background-color: rgba(196, 41, 41, 0.473);
+}
+
