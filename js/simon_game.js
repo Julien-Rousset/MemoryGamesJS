@@ -14,8 +14,14 @@ const simonGame = {
         if (simonGame.status === "ordi") {
             return;
         }
+        simonGame.cellActive(event.currentTarget, 100);
     },
-    
+    cellActive: function(element, duration) {
+        element.classList.add("active");
+        setTimeout(function() {
+            element.classList.remove("active");
+        }, duration);
+    },
     waitingLauncher: function() {
         let i = 0;
         
