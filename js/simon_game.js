@@ -11,38 +11,56 @@ const simonGame = {
         let randomElement = simonGame.randomCell();
         simonGame.cell_in_memory.push(randomElement);
         
-        let index = 0;
-        let id = setInterval(function() {
-            if (index === simonGame.cell_in_memory.length) {
-                clearInterval(id);
-                simonGame.status = "";
-            } else {
-                let element = simonGame.cell_in_memory[index];
-                simonGame.cellActive(element, 400);
-                index++;
-            }
-        }, 500)
+        // let index = 0;
+        // let id = setInterval(function() {
+        //     if (index === simonGame.cell_in_memory.length) {
+        //         clearInterval(id);
+        //         simonGame.status = "";
+        //     } else {
+        //         let element = simonGame.cell_in_memory[index];
+        //         simonGame.cellActive(element, 400);
+        //         index++;
+        //     }
+        // }, 500)
+
         // simonGame.cellActive(randomElement, 300);
+        simonGame.computerTurn()
         
+        
+    },
+    computerTurn: async function() {
+        let index = 0;
+
+        while (index < simonGame.cell_in_memory.length) {
+            let element = simonGame.cell_in_memory[index];
+            await simonGame.cellActive(element, 300);
+            element.classList.remove("active");
+            index++;
+        }
+
+        simonGame.status = "player";
         
     },
     randomCell: function() {
         let randomValue = Math.floor(Math.random() * simonGame.cellElements.length);
         return simonGame.cellElements[randomValue];
     },
-    playerListener: function(event) {
+    playerListener: async function(event) {
         if (simonGame.status === "ordi") {
             return;
         }
 
+        let elementPlayer = event.currentTarget;
         
         let element = simonGame.cell_in_memory[simonGame.userChoice];
         
-        if (event.currentTarget !== element) {
+        if (elementPlayer !== element) {
             alert("Désolé c'est perdu");
             return;
         }
-        simonGame.cellActive(event.currentTarget, 200);
+        await simonGame.cellActive(elementPlayer, 200);
+        elementPlayer.classList.remove("active");
+
         simonGame.userChoice += 1;
 
         if (simonGame.userChoice === simonGame.cell_in_memory.length) {
@@ -54,11 +72,12 @@ const simonGame = {
             
         } 
     },
-    cellActive: function(element, duration) {
+    cellActive: async function(element, duration) {
         element.classList.add("active");
-        setTimeout(function() {
-            element.classList.remove("active");
-        }, duration);
+        return new Promise((resolve, reject) => setTimeout(resolve, duration))
+        // setTimeout(function() {
+        //     element.classList.remove("active");
+        // }, duration);
     },
     waitingLauncher: function() {
         let i = 0;
